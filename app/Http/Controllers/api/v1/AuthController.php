@@ -48,10 +48,12 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => 'logout successfully'
-        ])->withCookie($cookie);
+        ], Response::HTTP_NO_CONTENT)->withCookie($cookie);
     }
 
     public function test() {
+
         return response()->json('dashboard');
+        // return response()->json(Auth::id());
     }
 }
