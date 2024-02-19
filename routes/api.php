@@ -25,6 +25,7 @@ Route::group(['prefix' => 'v1'], function() {
     Route::post('auth/login', [AuthController::class, 'login']);
 
     Route::middleware('auth:api')->group( function () {
+        Route::delete('auth/logout', [AuthController::class, 'logout']);
         Route::get('auth/test', [AuthController::class, 'test']);
         Route::apiResource('user', UserController::class);
     });

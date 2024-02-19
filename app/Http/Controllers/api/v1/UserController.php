@@ -75,7 +75,7 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json([
-            'success' => 'deleted successfully'
+            'message' => 'deleted successfully'
         ], Response::HTTP_NO_CONTENT);
     }
 }

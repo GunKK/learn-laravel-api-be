@@ -47,7 +47,7 @@ class AuthController extends Controller
         $cookie = Cookie::forget('jwt');
 
         return response()->json([
-            'success' => 'logout successfully'
+            'message' => 'logout successfully'
         ], Response::HTTP_NO_CONTENT)->withCookie($cookie);
     }
 
