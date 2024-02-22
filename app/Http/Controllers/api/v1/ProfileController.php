@@ -14,7 +14,7 @@ use Illuminate\Http\Response;
 class ProfileController extends Controller
 {
 
-    public function user(): JsonResponse
+    public function me(): JsonResponse
     {
         return response()->json(new UserResource(Auth::user()));
     }

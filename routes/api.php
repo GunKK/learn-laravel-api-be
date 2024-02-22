@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\v1\AuthController;
+use App\Http\Controllers\api\v1\ProfileController;
 use App\Http\Controllers\api\v1\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +27,18 @@ Route::group(['prefix' => 'v1'], function() {
     Route::middleware('auth:api')->group( function () {
         Route::delete('auth/logout', [AuthController::class, 'logout']);
         Route::get('auth/test', [AuthController::class, 'test']);
-        Route::apiResource('user', UserController::class);
+        Route::get('auth/me', [ProfileController::class, 'me']);
+        Route::apiResource('users', UserController::class);
+
+        // Admin
+        Route::group([
+            'prefix' => 'admin',
+            'middleware' => ['roles:admin,supervisor']
+        ], function() {
+            Route::get('test-roles', function() {
+                return response()->json('test_roles');
+            });
+        });
     });
 });
 
