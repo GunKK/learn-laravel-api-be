@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\auth\v1\LoginRequest;
 use App\Http\Requests\auth\v1\RegisterUserRequest;
 use App\Http\Resources\LoginUserResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
@@ -14,9 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Laravel\Passport\RefreshToken;
 use Laravel\Passport\Token;
-use Illuminate\Support\Facades\Http;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -30,41 +28,30 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->input('email'))->first();
         $token = $user->createToken('apiToken')->accessToken;
-        $cookie = cookie('accessToken', $token, 3600);
+        $cookie = cookie('access_token', $token, 3600);
 
         return response()->json([
-            'accessToken' => $token,
+            'access_token' => $token,
             'user' => new LoginUserResource($user)
         ])->withCookie($cookie);
-
-        // $email = $request->input('email');
-        // $password = $request->input('password');
-
-        // $response = Http::asForm()->post(config('services.passport.login_endpoint'), [
-        //     'client_id' => config('services.passport.client_fe_id'),
-        //     'client_secret' => config('services.passport.client_fe_secret'),
-        //     'grant_type' => 'password',
-        //     'username' => $email,
-        //     'password' => $password,
-        // ]);
-
-        // return $response->json();
     }
 
     public function register(RegisterUserRequest $request): JsonResponse
     {
-        $user = User::create(
+        User::create(
             $request->only('name', 'email')
             + ['password' => Hash::make($request->input('password'))]
         );
 
-        return response()->json($user, Response::HTTP_CREATED);
+        $user = User::where('email', $request->email)->first();
+
+        return response()->json(new UserResource($user), Response::HTTP_CREATED);
     }
 
     public function logout()
     {
         // clear cookie
-        $cookie = Cookie::forget('accessToken');
+        $cookie = Cookie::forget('access_token');
 
         // revoke access token
         $user = Auth::guard('api')->user();

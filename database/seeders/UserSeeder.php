@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class UserSeeder extends Seeder
                 'email'  =>'admin@hcmut.edu.vn',
                 'name' => 'admin',
                 'password' =>  Hash::make('admin12345678'),
-                'email_verified_at' => '2024-01-24 08:54:15',
+                'email_verified_at' => Carbon::now(),
                 'role_id' => 1,
                 'avatar' => 'https://gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9?size=200'
             ],
@@ -27,15 +28,15 @@ class UserSeeder extends Seeder
                 'email'  =>'supervisor@hcmut.edu.vn',
                 'name' => 'Hau supervisor',
                 'password' =>  Hash::make('supervisor12345678'),
-                'email_verified_at' => '2024-01-24 08:54:15',
+                'email_verified_at' => Carbon::now(),
                 'role_id' => 2,
                 'avatar' => 'https://gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9?size=200'
             ],
             [
-                'email'  =>'employee@hcmut.edu.vn',
-                'name' => 'Hau employee',
-                'password' =>  Hash::make('employee12345678'),
-                'email_verified_at' => '2024-01-24 08:54:15',
+                'email'  =>'teacher@hcmut.edu.vn',
+                'name' => 'Hau teacher',
+                'password' =>  Hash::make('teacher12345678'),
+                'email_verified_at' => Carbon::now(),
                 'role_id' => 3,
                 'avatar' => 'https://gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9?size=200'
             ],
@@ -43,7 +44,7 @@ class UserSeeder extends Seeder
                 'email'  =>'hau.nguyenbk19@hcmut.edu.vn',
                 'name' => 'Hau customer',
                 'password' =>  Hash::make('hau.nguyenbk19'),
-                'email_verified_at' => '2024-01-24 08:54:15',
+                'email_verified_at' => Carbon::now(),
                 'role_id' => 4,
                 'avatar' => 'https://gravatar.com/avatar/d36a92237c75c5337c17b60d90686bf9?size=200'
             ],

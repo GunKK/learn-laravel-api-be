@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\auth\v1\RegisterUserRequest;
 use App\Http\Requests\user\v1\CreateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;

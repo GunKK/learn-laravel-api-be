@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\v1\AuthController;
+use App\Http\Controllers\api\v1\ImportController;
 use App\Http\Controllers\api\v1\ProfileController;
 use App\Http\Controllers\api\v1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,9 @@ Route::group(['prefix' => 'v1'], function() {
             Route::get('test-roles', function() {
                 return response()->json('test_roles');
             });
+
+            Route::post('import.teacher', [ImportController::class, 'importTeachers']);
+            Route::post('import.student', [ImportController::class, 'importStudents']);
         });
     });
 });
