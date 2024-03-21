@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\ImportController;
 use App\Http\Controllers\api\v1\ProfileController;
+use App\Http\Controllers\api\v1\TeacherController;
 use App\Http\Controllers\api\v1\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,17 +48,18 @@ Route::group(['prefix' => 'v1'], function() {
         });
 
         // Teacher
-        // Route::group([
-        //     'prefix' => 'roles:teacher',
-        //     'middleware' => 'teacher'
-        // ]. function() {
-
-        // });
+        Route::group([
+            'prefix' => 'teacher',
+            'middleware' => 'roles:teacher'
+        ], function() {
+            Route::post('store.teacher_to_subject', [TeacherController::class, 'createTeacherToSubject']);
+            Route::post('getAllSubjects', [TeacherController::class, 'getSubjects']);
+        });
         //Student
         // Route::group([
-        //     'prefix' => 'roles:student',
-        //     'middleware' => 'student'
-        // ]. function() {
+        //     'prefix' => 'student',
+        //     'middleware' => 'roles:student'
+        // ], function() {
 
         // });
 
