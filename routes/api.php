@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1'], function() {
         Route::delete('auth/logout', [AuthController::class, 'logout']);
         Route::get('auth/test', [AuthController::class, 'test']);
         Route::get('auth/me', [ProfileController::class, 'me']);
+        Route::post('auth/avatar', [ProfileController::class, 'storeAvatar']);
         Route::apiResource('users', UserController::class);
 
         // Admin

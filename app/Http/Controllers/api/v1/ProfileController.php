@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\file\ImageRequest;
 use App\Http\Requests\profile\v1\ProfileUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
@@ -39,5 +40,19 @@ class ProfileController extends Controller
         return response()->json([
             'message' => 'deleted successfully'
         ], Response::HTTP_NO_CONTENT);
+    }
+
+    public function storeAvatar(ImageRequest $request)
+    {
+        $file_name = date('Ymd_His_').$request->img_file->getClientOriginalName();
+        $file_path = storage_path('app\\public\\profiles\\' . $file_name);
+        $user = User::find(Auth::user()->id);
+        $user->avatar = $file_path;
+        $user->save();
+        
+        $request->img_file->move(storage_path('app\\public\\profiles\\' . $user->id), $file_name);
+
+        return response()->json(['success' => 'upload avatar successfully']);
+
     }
 }
