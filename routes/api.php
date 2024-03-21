@@ -42,7 +42,24 @@ Route::group(['prefix' => 'v1'], function() {
 
             Route::post('import.teacher', [ImportController::class, 'importTeachers']);
             Route::post('import.student', [ImportController::class, 'importStudents']);
+            Route::post('import.subject', [ImportController::class, 'importSubjects']);
         });
+
+        // Teacher
+        // Route::group([
+        //     'prefix' => 'roles:teacher',
+        //     'middleware' => 'teacher'
+        // ]. function() {
+
+        // });
+        //Student
+        // Route::group([
+        //     'prefix' => 'roles:student',
+        //     'middleware' => 'student'
+        // ]. function() {
+
+        // });
+
     });
 });
 
