@@ -31,7 +31,7 @@ class ImportController extends Controller
         ImportStudentsCsv::dispatch($path, $studentImport)->delay(10);
 
         return response()->json([
-            'success' => 'Tải file thành công, đang chờ xử lý'
+            'message' => 'Tải file thành công, đang chờ xử lý'
         ], Response::HTTP_OK);
     }
 
@@ -53,7 +53,7 @@ class ImportController extends Controller
         ImportTeachersCsv::dispatch($path, $teacherImport)->delay(10);
 
         return response()->json([
-            'success' => 'Tải file thành công, đang chờ xử lý'
+            'message' => 'Tải file thành công, đang chờ xử lý'
         ], Response::HTTP_OK);
     }
 
@@ -75,7 +75,7 @@ class ImportController extends Controller
         ImportSubjectsCsv::dispatch($path, $subjectImport)->delay(10);
 
         return response()->json([
-            'success' => 'Tải file thành công, đang chờ xử lý'
+            'message' => 'Tải file thành công, đang chờ xử lý'
         ], Response::HTTP_OK);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
-
+use App\Models\Report;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -35,6 +35,17 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::before(function($user) {
             return $user->role_id == 1;
+        });
+
+        Gate::define('teacher_set_mark', function (Report $report) {
+            return true;
+            // return Auth::user()->teacher_id === $report->teacherToSubject->teacher_id;
+        });
+
+        Gate::define('view_download_report', function (Report $report) {
+            return true;
+            // return (Auth::user()->teacher_id === $report->teacherToSubject->teacher_id)
+            //         || (Auth::user()->student_id === $report->student_id);
         });
     }
 }

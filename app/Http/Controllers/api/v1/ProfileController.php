@@ -44,14 +44,16 @@ class ProfileController extends Controller
     public function storeAvatar(ImageRequest $request)
     {
         $file_name = date('Ymd_His_').$request->img_file->getClientOriginalName();
-        $file_path = storage_path('app\\public\\profiles\\' . $file_name);
+        $file_path = env('APP_URL', 'http://localhost:8000') . '/storage/profiles/' . Auth::user()->id . '/' . $file_name;
         $user = User::find(Auth::user()->id);
         $user->avatar = $file_path;
         $user->save();
 
         $request->img_file->move(storage_path('app\\public\\profiles\\' . $user->id), $file_name);
 
-        return response()->json(['success' => 'upload avatar successfully']);
+        return response()->json([
+            'message' => 'upload avatar successfully'
+        ]);
 
     }
 }

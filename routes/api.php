@@ -3,6 +3,8 @@
 use App\Http\Controllers\api\v1\AuthController;
 use App\Http\Controllers\api\v1\ImportController;
 use App\Http\Controllers\api\v1\ProfileController;
+use App\Http\Controllers\api\v1\ReportController;
+use App\Http\Controllers\api\v1\StudentController;
 use App\Http\Controllers\api\v1\TeacherController;
 use App\Http\Controllers\api\v1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -54,15 +56,23 @@ Route::group(['prefix' => 'v1'], function() {
         ], function() {
             Route::post('store.teacher_to_subject', [TeacherController::class, 'createTeacherToSubject']);
             Route::post('getAllSubjects', [TeacherController::class, 'getSubjects']);
+            Route::put('report.setMark/{id}', [TeacherController::class, 'setMarkReport']);
         });
         //Student
-        // Route::group([
-        //     'prefix' => 'student',
-        //     'middleware' => 'roles:student'
-        // ], function() {
+        Route::group([
+            'prefix' => 'student',
+            'middleware' => 'roles:student'
+        ], function() {
+            Route::post('report.store', [StudentController::class, 'storeReport']);
+        });
 
-        // });
-
+        // Report
+        Route::group([
+            'prefix' => 'report'
+        ], function() {
+            Route::get('view/{id}', [ReportController::class, 'viewReport']);
+            Route::get('download/{id}', [ReportController::class, 'downloadReport']);
+        });
     });
 });
 
