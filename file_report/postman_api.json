@@ -1,0 +1,615 @@
+{
+	"info": {
+		"_postman_id": "27f830ac-b36d-4d1c-ab31-3e3d95034a14",
+		"name": "Laravel-api-intern",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24969527"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"hau.nguyenbk19100@hcmut.edu.vn\",\r\n    \"password\" : \"hau.nguyenbk19\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_be_url}}/auth/login",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_be_url}}/auth/logout",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"nduchau\",\r\n    // \"email\": \"hau.nguyenbk191@hcmut.edu.vn\",\r\n    // \"password\" : \"hau.nguyenbk19\",\r\n    // \"password_confirmation\" : \"hau.nguyenbk19\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_be_url}}/auth/register",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_be_url}}/auth/me",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store-avatar",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{base_be_url}}/auth/avatar",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"auth",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"last_name\" : \"Nguyen Duc\",\r\n    \"first_name\" : \"Hau 123\",\r\n    \"address\" : \"KTX khu B, Đông Hòa, Dĩ An, Bình Dương\",\r\n    \"phone\" : \"0382848786\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_be_url}}/student/studentInfo.update",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"student",
+								"studentInfo.update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"last_name\" : \"Nguyen Duc\",\r\n    \"first_name\" : \"Hau\",\r\n    \"student_code\" : \"1913304\",\r\n    \"department\" : \"Điện\",\r\n    \"faculty\" : \"Bộ môn Viễn Thông\",\r\n    \"address\" : \"KTX khu B, Đông Hòa, Dĩ An, Bình Dương\",\r\n    \"phone\" : \"0382848786\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_be_url}}/student/studentInfo.store",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"student",
+								"studentInfo.store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store-report",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "teacher_to_subject_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "report 1",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/nduchau/Downloads/BTL_SCT_HK231.pdf"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_be_url}}/student/report.store",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"student",
+								"report.store"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Import",
+					"item": [
+						{
+							"name": "student_list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "csv_import",
+											"type": "file",
+											"src": "/C:/Users/nduchau/workspace/Laravel/react-laravel/Myseft/student_list.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_be_url}}/admin/import.student",
+									"host": [
+										"{{base_be_url}}"
+									],
+									"path": [
+										"admin",
+										"import.student"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "teacher_list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "csv_import",
+											"type": "file",
+											"src": "/C:/Users/nduchau/workspace/Laravel/react-laravel/Myseft/teachers_large.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_be_url}}/admin/import.teacher",
+									"host": [
+										"{{base_be_url}}"
+									],
+									"path": [
+										"admin",
+										"import.teacher"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "subject_list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "csv_import",
+											"type": "file",
+											"src": "/C:/Users/nduchau/workspace/Laravel/react-laravel/Myseft/subjects.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_be_url}}/admin/import.subject",
+									"host": [
+										"{{base_be_url}}"
+									],
+									"path": [
+										"admin",
+										"import.subject"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Teacher",
+			"item": [
+				{
+					"name": "TeacherToSubject",
+					"item": [
+						{
+							"name": "new",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"subject_id\": \"1\",\r\n    \"semester\": \"HK231\",\r\n    \"year\": \"2024\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_be_url}}/teacher/store.teacher_to_subject",
+									"host": [
+										"{{base_be_url}}"
+									],
+									"path": [
+										"teacher",
+										"store.teacher_to_subject"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAllSubjects",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_be_url}}/teacher/getAllSubjects",
+									"host": [
+										"{{base_be_url}}"
+									],
+									"path": [
+										"teacher",
+										"getAllSubjects"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Report",
+					"item": [
+						{
+							"name": "set-mark",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mark\": 7.5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_be_url}}/teacher/report.setMark/1",
+									"host": [
+										"{{base_be_url}}"
+									],
+									"path": [
+										"teacher",
+										"report.setMark",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "view-report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_be_url}}/report/view/1",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"report",
+								"view",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "download-report",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_be_url}}/report/download/1",
+							"host": [
+								"{{base_be_url}}"
+							],
+							"path": [
+								"report",
+								"download",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

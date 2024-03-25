@@ -1,3 +1,463 @@
+## Technologies
+* Backend: Laravel10
+* Database: MySQL 
+## Contact
+* **Email**: hau.nguyenbk8786@gmail.com
+
+## API documentation
+### Auth
+* Sign up user into the system
+    ```http
+    POST /api/v1/auth/register
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `name` | `string` | **Required** |
+    | `email` | `string email unique` | **Required, email, unique, ends_with:hcmut.edu.vn** |
+    | `password` | `string` | **Required** |
+    | `password_confirmation` | `string` | **Required, same:password** |
+
+    ```javascript
+    code 200
+    {
+        "id": integer,
+        "name": string,
+        "email": string,
+        "role": {
+            "name": string
+        },
+        "avatar": string,
+        "created_at": timestamp,
+        "updated_at": timestamp
+    }
+    ```
+
+* Log in user into the system
+    ```http
+    POST /api/v1/auth/login
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `email` | `string email` | **Required, email, ends_with:hcmut.edu.vn** |
+    | `password` | `string` | **Required** |
+
+    ```javascript
+    code 200
+    {
+        "access_token": string,
+        "user": {
+            "id": integer,
+            "name": string,
+            "email": string,
+            "avatar": string
+            "role": integer
+        }
+    }
+
+    code 401 
+    {
+        "error": "Invalid username or Password"
+    }
+    ```
+
+* Get current user logged
+    ```http
+    POST /api/v1/auth/me
+    ```
+
+    ```javascript
+    code 200
+    {
+        "id": integer,
+        "name": string,
+        "email": string,
+        "role": {
+            "name": string
+        },
+        "avatar": string,
+        "created_at": timestamp,
+        "updated_at": timestamp
+    }
+
+    code 401 
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+    ```
+
+* Log out current logged (invoke token)
+    ```http
+    DELETE /api/v1/auth/logout
+    ```
+
+    ```javascript
+    code 204
+    {
+
+    }
+    ```
+
+
+
+* Change an avatar
+    ```http
+    POST /api/v1/auth/avatar
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `img_file` | `file,png,jpg,jpeg,gif ` | **Required, file, png,jpg,jpeg,gif** |
+
+    ```javascript
+    code 200
+    {
+        "message": "upload avatar successfully"
+    }
+    ```
+
+### Teacher
+
+* Create a new TeacherToSubject (subject registration)
+    ```http
+    POST /api/v1/teacher/store.teacher_to_subject
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `subject_id` | `required ` | **Required** |
+    | `semester` | `required ` | **Required** |
+    | `year` | `required ` | **Required** |
+
+    ```javascript
+    code 200
+    {
+        "id": integer,
+        "subject_id": integer,
+        "semester": string,
+        "year": string,
+        "teacher_id": integer,
+        "updated_at": timestamp,
+        "created_at": timestamp,
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ```
+
+* Get all subjects
+    ```http
+    POST /api/v1/teacher/getAllSubjects
+    ```
+
+    ```javascript
+    code 200
+    {
+        "data": [
+            {
+                "id": integer,
+                "name": string,
+                "code": string
+            },
+            {
+                "id": integer,
+                "name": string,
+                "code": string
+            }
+        ]
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ```
+
+* Set mark for report
+    ```http
+    PUT /api/v1/teacher/report.setMark/{reportId}
+    ```
+
+    ```javascript
+    code 200
+    {
+        "message": "update mark successfully"
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ```
+
+### Student 
+
+* Create the student information
+    ```http
+    POST /api/v1/student/studentInfo.store
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `last_name` | `string` | **Required** |
+    | `first_name` | `string ` | **Required** |
+    | `student_code` | `string unique` | **Required, unique** |
+    | `department` | `string ` | **Required** |
+    | `faculty` | `string ` | **Required** |
+    | `address` | `string ` | **Required** |
+    | `phone` | `string ` | **Required** |
+
+    ```javascript
+    code 200
+    {       
+        "id": integer,
+        "last_name": string,
+        "first_name": string,
+        "student_code": string,
+        "department": string,
+        "faculty": string,
+        "address": string,
+        "phone": string,
+        "updated_at": timestamp,
+        "created_at": timestamp
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ``` 
+
+* Update the student information
+    ```http
+    PUT /api/v1/student/studentInfo.update
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `last_name` | `string` | **Required** |
+    | `first_name` | `string ` | **Required** |
+    | `address` | `string ` | **Required** |
+    | `phone` | `string ` | **Required** |
+
+    ```javascript
+    code 200
+    {       
+        "id": integer,
+        "last_name": string,
+        "first_name": string,
+        "student_code": string,
+        "department": string,
+        "faculty": string,
+        "address": string,
+        "phone": string,
+        "updated_at": timestamp,
+        "created_at": timestamp
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ``` 
+
+* Upload the report
+    ```http
+    POST /api/v1/student/report.store
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `teacher_to_subject_id` | `integer` | **Required** |
+    | `title` | `string ` | **Required** |
+    | `file` | `file, pdf,doc,docx` | **Required, pdf,doc,docx** |
+
+    ```javascript
+    code 200
+    {       
+       "message": "upload report successfully"
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ``` 
+
+### Report: only student and teacher
+
+*  View the report
+    ```http
+    GET /api/v1/report/view/{reportId}
+    ```
+
+    ```javascript
+    code 200
+    {       
+       <file content here>
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ```
+*  Download the report
+    ```http
+    GET /api/v1/report/download/{reportId}
+    ```
+
+    ```javascript
+    code 200
+    {       
+       
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ```
+
+
+### Admin: only admin and supervisor
+* Import a teacher list into the system.
+    ```http
+    POST /api/v1/admin/import.teacher
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `csv_import` | `file: csv,txt` | **Required, file:csv,txt** |
+
+    ```javascript
+    code 200
+    {       
+        "message": "Tải file thành công, đang chờ xử lý"
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ``` 
+
+* Import a student list into the system.
+    ```http
+    POST /api/v1/admin/import.student
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `csv_import` | `file: csv,txt` | **Required, file:csv,txt** |
+
+    ```javascript
+    code 200
+    {       
+        "message": "Tải file thành công, đang chờ xử lý"
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ``` 
+
+* Import a subject list into the system.
+    ```http
+    POST /api/v1/admin/import.subject
+    ```
+
+    | Parameter | Type | Description |
+    | :--- | :--- | :--- |
+    | `csv_import` | `file: csv,txt` | **Required, file:csv,txt** |
+
+    ```javascript
+    code 200
+    {       
+        "message": "Tải file thành công, đang chờ xử lý"
+    }
+
+    code 401
+    {
+        "message": "Unauthorized",
+        "status": 401
+    }
+
+    code 403
+    {
+        "message": "Forbidden",
+        "status": 403
+    }
+    ``` 
+
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
