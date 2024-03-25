@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Import;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -11,15 +12,31 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Events\ImportFailed;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\WithEvents;
 
 
-class TeachersImport implements ToCollection, WithHeadingRow
+class TeachersImport implements ToCollection, WithHeadingRow, WithChunkReading,  ShouldQueue, WithEvents
 {
 
     // public function startRow(): int
     // {
     //     return 2;
     // }
+
+    public $teacherImport;
+    public function __construct($teacherImport)
+    {
+        $this->teacherImport = $teacherImport;
+    }
+
+    public function chunkSize(): int
+    {
+        return 200;
+    }
+
     /**
     * @param Collection $collection
     */
@@ -53,5 +70,15 @@ class TeachersImport implements ToCollection, WithHeadingRow
                 return response()->json(['message' => 'Mã lỗi' . $e->getMessage()]);
             }
         }
+    }
+
+    // handle error
+    public function registerEvents(): array
+    {
+        return [
+            ImportFailed::class => function(ImportFailed $event) {
+                $this->teacherImport->update(['status' => 3]);
+            },
+        ];
     }
 }

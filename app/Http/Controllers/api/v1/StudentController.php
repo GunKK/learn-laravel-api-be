@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Report;
 use App\Models\TeacherToSubject;
+use App\Models\User;
 
 class StudentController extends Controller
 {
@@ -22,15 +23,19 @@ class StudentController extends Controller
         $student = new Student($request->validated());
         $student->save();
 
+        $user = User::find(Auth::id());
+        $user->student_id = $student->id;
+        $user->save();
+
         return response()->json($student, Response::HTTP_CREATED);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStudentRequest $request, string $id)
+    public function update(UpdateStudentRequest $request)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::findOrFail(Auth::user()->student_id);
         $student->update($request->validated());
 
         return response()->json($student, Response::HTTP_OK);

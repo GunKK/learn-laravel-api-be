@@ -32,7 +32,7 @@ class ImportStudentsCsv implements ShouldQueue
     {
         $this->studentImport->update(['status' => 1]);
 
-        Excel::import(new StudentsImport, $this->path);
+        Excel::import(new StudentsImport($this->studentImport), $this->path);
 
         $this->studentImport->update(['status' => 2]);
     }

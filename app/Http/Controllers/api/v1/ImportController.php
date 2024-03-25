@@ -8,6 +8,7 @@ use App\Jobs\ImportTeachersCsv;
 use App\Jobs\ImportStudentsCsv;
 use App\Jobs\ImportSubjectsCsv;
 use App\Models\Import;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,7 +51,7 @@ class ImportController extends Controller
         $teacherImport = Import::where('name', $file_name)->first();
         $teacherImport = $import;
         $path = $file_path;
-        ImportTeachersCsv::dispatch($path, $teacherImport)->delay(10);
+        ImportTeachersCsv::dispatch($path, $teacherImport)->delay(Carbon::now()->addSeconds(10));
 
         return response()->json([
             'message' => 'Tải file thành công, đang chờ xử lý'
@@ -72,7 +73,7 @@ class ImportController extends Controller
         $subjectImport = Import::where('name', $file_name)->first();
         $subjectImport = $import;
         $path = $file_path;
-        ImportSubjectsCsv::dispatch($path, $subjectImport)->delay(10);
+        ImportSubjectsCsv::dispatch($path, $subjectImport)->delay(Carbon::now()->addSeconds(10));
 
         return response()->json([
             'message' => 'Tải file thành công, đang chờ xử lý'

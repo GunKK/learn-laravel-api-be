@@ -31,8 +31,10 @@ class TeacherController extends Controller
 
     public function setMarkReport(SetMarkReportRequest $request, string $id)
     {
-        $this->authorize('teacher_set_mark');
         $report = Report::findOrFail($id);
+        if (Gate::denies('teacher_set_mark', $report)) {
+            return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
+        }
         $report->mark = $request->mark;
         $report->save();
 

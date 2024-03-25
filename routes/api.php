@@ -63,6 +63,8 @@ Route::group(['prefix' => 'v1'], function() {
             'prefix' => 'student',
             'middleware' => 'roles:student'
         ], function() {
+            Route::post('studentInfo.store', [StudentController::class, 'store']);
+            Route::put('studentInfo.update', [StudentController::class, 'update']);
             Route::post('report.store', [StudentController::class, 'storeReport']);
         });
 
