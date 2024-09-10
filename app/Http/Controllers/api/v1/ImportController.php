@@ -17,7 +17,7 @@ class ImportController extends Controller
     public function importStudents(ExcelRequest $request)
     {
         $file_name = date('Ymd_His_') . $request->csv_import->getClientOriginalName();
-        $file_path = storage_path('app\\data\\students\\' . $file_name);
+        $file_path = storage_path('app/data/students/' . $file_name);
         $import = new Import();
         $import->name = $file_name;
         $import->path = $file_path;
@@ -25,7 +25,7 @@ class ImportController extends Controller
         $import->created_by = Auth::user()->name;
         $import->save();
 
-        $request->csv_import->move(storage_path('app\\data\\students\\'), $file_name);
+        $request->csv_import->move(storage_path('app/data/students/'), $file_name);
         $studentImport = Import::where('name', $file_name)->first();
         $studentImport = $import;
         $path = $file_path;
@@ -39,7 +39,7 @@ class ImportController extends Controller
     public function importTeachers(ExcelRequest $request)
     {
         $file_name = date('Ymd_His_') . $request->csv_import->getClientOriginalName();
-        $file_path = storage_path('app\\data\\teachers\\' . $file_name);
+        $file_path = storage_path('app/data/teachers/' . $file_name);
         $import = new Import();
         $import->name = $file_name;
         $import->path = $file_path;
@@ -47,7 +47,7 @@ class ImportController extends Controller
         $import->created_by = Auth::user()->name;
         $import->save();
 
-        $request->csv_import->move(storage_path('app\\data\\teachers\\'), $file_name);
+        $request->csv_import->move(storage_path('app/data/teachers/'), $file_name);
         $teacherImport = Import::where('name', $file_name)->first();
         $teacherImport = $import;
         $path = $file_path;
@@ -61,7 +61,7 @@ class ImportController extends Controller
     public function importSubjects(ExcelRequest $request)
     {
         $file_name = date('Ymd_His_') . $request->csv_import->getClientOriginalName();
-        $file_path = storage_path('app\\data\\subjects\\' . $file_name);
+        $file_path = storage_path('app/data/subjects/' . $file_name);
         $import = new Import();
         $import->name = $file_name;
         $import->path = $file_path;
@@ -69,7 +69,7 @@ class ImportController extends Controller
         $import->created_by = Auth::user()->name;
         $import->save();
 
-        $request->csv_import->move(storage_path('app\\data\\\subjects\\'), $file_name);
+        $request->csv_import->move(storage_path('app/data/subjects/'), $file_name);
         $subjectImport = Import::where('name', $file_name)->first();
         $subjectImport = $import;
         $path = $file_path;
