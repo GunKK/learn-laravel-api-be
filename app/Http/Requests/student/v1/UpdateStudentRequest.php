@@ -25,7 +25,7 @@ class UpdateStudentRequest extends FormRequest
             'last_name' => ['required'],
             'first_name' => ['required'],
             'address' => ['required'],
-            'phone' => ['required','min:10','max:12'],
+            'phone' => ['required', 'min:10', 'max:12'],
         ];
     }
 }

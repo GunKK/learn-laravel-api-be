@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests\profile\v1;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use App\Models\User;
+use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -25,7 +24,7 @@ class ProfileUpdateRequest extends FormRequest
     {
         return [
             'name' => 'string|max:255',
-            'email' => 'required|string|email|max:255|ends_with:hcmut.edu.vn|unique:'.User::class,
+            'email' => 'required|string|email|max:255|ends_with:hcmut.edu.vn|unique:' . User::class,
         ];
     }
 }

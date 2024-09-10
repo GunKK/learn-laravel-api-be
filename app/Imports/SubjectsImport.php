@@ -2,20 +2,20 @@
 
 namespace App\Imports;
 
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Models\Subject;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Events\ImportFailed;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Events\ImportFailed;
 
-class SubjectsImport implements ToCollection, WithHeadingRow, WithChunkReading, ShouldQueue, WithEvents
+class SubjectsImport implements ShouldQueue, ToCollection, WithChunkReading, WithEvents, WithHeadingRow
 {
-
     public $subjectImport;
+
     public function __construct($subjectImport)
     {
         $this->subjectImport = $subjectImport;
@@ -27,11 +27,11 @@ class SubjectsImport implements ToCollection, WithHeadingRow, WithChunkReading, 
     }
 
     /**
-    * @param Collection $collection
-    */
+     * @param  Collection  $collection
+     */
     public function collection(Collection $rows)
     {
-        foreach ($rows as $row ) {
+        foreach ($rows as $row) {
             DB::beginTransaction();
             try {
                 $subject = new Subject();
@@ -43,6 +43,7 @@ class SubjectsImport implements ToCollection, WithHeadingRow, WithChunkReading, 
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
+
                 return response()->json(['message' => 'Mã lỗi' . $e->getMessage()]);
             }
         }
@@ -51,7 +52,7 @@ class SubjectsImport implements ToCollection, WithHeadingRow, WithChunkReading, 
     public function registerEvents(): array
     {
         return [
-            ImportFailed::class => function(ImportFailed $event) {
+            ImportFailed::class => function (ImportFailed $event) {
                 $this->subjectImport->update(['status' => 3]);
             },
         ];

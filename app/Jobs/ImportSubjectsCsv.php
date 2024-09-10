@@ -2,20 +2,22 @@
 
 namespace App\Jobs;
 
+use App\Imports\SubjectsImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\SubjectsImport;
 
 class ImportSubjectsCsv implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $path;
+
     public $subjectImport;
+
     /**
      * Create a new job instance.
      */

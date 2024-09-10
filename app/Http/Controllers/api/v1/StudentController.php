@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\student\v1\CreateStudentRequest;
 use App\Http\Requests\student\v1\ReportRequest;
 use App\Http\Requests\student\v1\UpdateStudentRequest;
-use App\Models\Student;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Report;
+use App\Models\Student;
 use App\Models\TeacherToSubject;
 use App\Models\User;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -46,8 +46,8 @@ class StudentController extends Controller
         $teacherToSubject = TeacherToSubject::find($request->teacher_to_subject_id);
         $year = $teacherToSubject->year;
         $semester = $teacherToSubject->semester;
-        $file_name = date('Ymd_His_').$request->file->getClientOriginalName();
-        $file_path = storage_path('app\\data\\reports\\'.$year.'\\'.$semester.'\\'.$teacherToSubject->id.'\\'.$file_name);
+        $file_name = date('Ymd_His_') . $request->file->getClientOriginalName();
+        $file_path = storage_path('app\\data\\reports\\' . $year . '\\' . $semester . '\\' . $teacherToSubject->id . '\\' . $file_name);
 
         $report = new Report();
         $report->student_id = Auth::user()->student_id;
@@ -56,10 +56,10 @@ class StudentController extends Controller
         $report->path = $file_path;
         $report->save();
 
-        $request->file->move(storage_path('app\\data\\reports\\'.$year.'\\'.$semester.'\\'.$teacherToSubject->id), $file_name);
+        $request->file->move(storage_path('app\\data\\reports\\' . $year . '\\' . $semester . '\\' . $teacherToSubject->id), $file_name);
 
         return response()->json([
-            'message' => 'upload report successfully'
+            'message' => 'upload report successfully',
         ], Response::HTTP_CREATED);
     }
 }

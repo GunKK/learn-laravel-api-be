@@ -5,7 +5,6 @@ namespace App\Http\Requests\auth\v1;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
 
-
 class LoginRequest extends FormRequest
 {
     /**

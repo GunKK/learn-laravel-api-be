@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('teacher_to_subject_id')->bigInterger()->constrained('teacher_to_subjects')->onDelete('cascade');
             $table->string('title');
             $table->string('path');
-            $table->float('mark', 8,2)->nullable();
+            $table->float('mark', 8, 2)->nullable();
             $table->timestamps();
         });
     }

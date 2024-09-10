@@ -6,15 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\user\v1\CreateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Response;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
-
     use AuthorizesRequests;
 
     public function __construct()
@@ -62,6 +61,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->role_id = $request->input('role_id');
         $user->save();
+
         return new UserResource($user);
     }
 
@@ -74,7 +74,7 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json([
-            'message' => 'deleted successfully'
+            'message' => 'deleted successfully',
         ], Response::HTTP_NO_CONTENT);
     }
 }

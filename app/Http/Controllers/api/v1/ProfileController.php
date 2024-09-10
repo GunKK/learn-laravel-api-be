@@ -8,16 +8,16 @@ use App\Http\Requests\profile\v1\ProfileUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-
     public function me(): JsonResponse
     {
         return response()->json(new UserResource(Auth::user()));
     }
+
     public function update(ProfileUpdateRequest $request): JsonResponse
     {
         $request->user()->fill($request->validated());
@@ -37,13 +37,13 @@ class ProfileController extends Controller
         $user->delete();
 
         return response()->json([
-            'message' => 'deleted successfully'
+            'message' => 'deleted successfully',
         ], Response::HTTP_NO_CONTENT);
     }
 
     public function storeAvatar(ImageRequest $request)
     {
-        $file_name = date('Ymd_His_').$request->img_file->getClientOriginalName();
+        $file_name = date('Ymd_His_') . $request->img_file->getClientOriginalName();
         $file_path = env('APP_URL', 'http://localhost:8000') . '/storage/profiles/' . Auth::user()->id . '/' . $file_name;
         $user = User::find(Auth::user()->id);
         $user->avatar = $file_path;
@@ -52,7 +52,7 @@ class ProfileController extends Controller
         $request->img_file->move(storage_path('app\\public\\profiles\\' . $user->id), $file_name);
 
         return response()->json([
-            'message' => 'upload avatar successfully'
+            'message' => 'upload avatar successfully',
         ]);
 
     }

@@ -24,11 +24,11 @@ class CreateStudentRequest extends FormRequest
         return [
             'last_name' => ['required'],
             'first_name' => ['required'],
-            'student_code' => ['required','unique:students'],
+            'student_code' => ['required', 'unique:students'],
             'department' => ['required'],
             'faculty' => ['required'],
             'address' => ['required'],
-            'phone' => ['required','min:10','max:12'],
+            'phone' => ['required', 'min:10', 'max:12'],
         ];
     }
 }

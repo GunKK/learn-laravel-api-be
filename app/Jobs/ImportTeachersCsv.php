@@ -2,19 +2,20 @@
 
 namespace App\Jobs;
 
+use App\Imports\TeachersImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\TeachersImport;
 
 class ImportTeachersCsv implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $path;
+
     public $teacherImport;
 
     /**

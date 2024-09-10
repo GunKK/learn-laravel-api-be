@@ -22,7 +22,7 @@ class SetMarkReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mark' => 'required|numeric|min:0|max:10'
+            'mark' => 'required|numeric|min:0|max:10',
         ];
     }
 }

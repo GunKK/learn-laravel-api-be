@@ -4,9 +4,8 @@ namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Report;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ReportController extends Controller
 {
@@ -17,6 +16,7 @@ class ReportController extends Controller
             return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
         }
         $pathReport = $report->path;
+
         return response()->file($pathReport);
     }
 
@@ -27,6 +27,7 @@ class ReportController extends Controller
             return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
         }
         $pathReport = $report->path;
+
         return response()->download($pathReport);
     }
 }

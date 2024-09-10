@@ -6,9 +6,9 @@ use App\Models\Report;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
         Passport::personalAccessTokensExpireIn(Carbon::now()->addMonths(6));
 
-        Gate::before(function($user) {
+        Gate::before(function ($user) {
             return $user->role_id == 1;
         });
 

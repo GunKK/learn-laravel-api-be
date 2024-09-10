@@ -9,10 +9,10 @@ use App\Http\Resources\LoginUserResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\RefreshToken;
 use Laravel\Passport\Token;
 
@@ -20,7 +20,7 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request): JsonResponse
     {
-        if (! Auth::attempt($request->only('email', 'password'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'error' => 'Invalid username or Password',
             ], Response::HTTP_UNAUTHORIZED);
@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         return response()->json([
             'access_token' => $token,
-            'user' => new LoginUserResource($user)
+            'user' => new LoginUserResource($user),
         ])->withCookie($cookie);
     }
 
@@ -57,20 +57,22 @@ class AuthController extends Controller
         $user->token()->revoke();
 
         return response()->json([
-            'message' => 'logout successfully'
+            'message' => 'logout successfully',
         ], Response::HTTP_NO_CONTENT)->withCookie($cookie);
     }
 
-    public function logoutAll() {
+    public function logoutAll()
+    {
         $user = Auth::user();
-        $tokens =  $user->tokens->pluck('id');
+        $tokens = $user->tokens->pluck('id');
         Token::whereIn('id', $tokens)
-            ->update(['revoked'=> 1]);
+            ->update(['revoked' => 1]);
 
         RefreshToken::whereIn('access_token_id', $tokens)->update(['revoked' => true]);
     }
 
-    public function test() {
+    public function test()
+    {
         return response()->json('dashboard');
     }
 }

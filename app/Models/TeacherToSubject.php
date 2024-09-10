@@ -12,7 +12,7 @@ class TeacherToSubject extends Model
     use HasFactory;
 
     public $fillable = [
-        'teacher_id', 'subject_id', 'semester', 'year', 'note'
+        'teacher_id', 'subject_id', 'semester', 'year', 'note',
     ];
 
     public function teacher(): BelongsTo

@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Subject extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name', 'code', 'note'
+        'name', 'code', 'note',
     ];
 
     public function teacherToSubject(): HasMany

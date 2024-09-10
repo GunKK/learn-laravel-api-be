@@ -6,14 +6,14 @@ namespace App\Models;
 use App\Traits\HasGravatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasGravatar;
+    use HasApiTokens, HasFactory, HasGravatar, Notifiable;
 
     /**
      * The attributes that are mass assignable.

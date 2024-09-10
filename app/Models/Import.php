@@ -10,6 +10,6 @@ class Import extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'path', 'status', 'created_by', 'note'
+        'name', 'path', 'status', 'created_by', 'note',
     ];
 }

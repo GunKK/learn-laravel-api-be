@@ -2,31 +2,27 @@
 
 namespace App\Imports;
 
-use App\Models\Import;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\WithStartRow;
 use App\Models\Teacher;
 use App\Models\User;
-use Carbon\Carbon;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Events\ImportFailed;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Events\ImportFailed;
 
-
-class TeachersImport implements ToCollection, WithHeadingRow, WithChunkReading,  ShouldQueue, WithEvents
+class TeachersImport implements ShouldQueue, ToCollection, WithChunkReading, WithEvents, WithHeadingRow
 {
-
     // public function startRow(): int
     // {
     //     return 2;
     // }
 
     public $teacherImport;
+
     public function __construct($teacherImport)
     {
         $this->teacherImport = $teacherImport;
@@ -38,11 +34,11 @@ class TeachersImport implements ToCollection, WithHeadingRow, WithChunkReading, 
     }
 
     /**
-    * @param Collection $collection
-    */
+     * @param  Collection  $collection
+     */
     public function collection(Collection $rows)
     {
-        foreach ($rows as $row ) {
+        foreach ($rows as $row) {
             DB::beginTransaction();
             try {
                 $teacher = new Teacher();
@@ -57,9 +53,9 @@ class TeachersImport implements ToCollection, WithHeadingRow, WithChunkReading, 
                 $teacher->save();
 
                 $user = new User();
-                $user->name = $row['last_name']." ".$row['first_name'];
+                $user->name = $row['last_name'] . ' ' . $row['first_name'];
                 $user->email = $row['email'];
-                $user->password = Hash::make("Bmvt@hcmut");
+                $user->password = Hash::make('Bmvt@hcmut');
                 $user->role_id = 3;
                 $user->teacher_id = $teacher->id;
                 $user->save();
@@ -67,6 +63,7 @@ class TeachersImport implements ToCollection, WithHeadingRow, WithChunkReading, 
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
+
                 return response()->json(['message' => 'Mã lỗi' . $e->getMessage()]);
             }
         }
@@ -76,7 +73,7 @@ class TeachersImport implements ToCollection, WithHeadingRow, WithChunkReading, 
     public function registerEvents(): array
     {
         return [
-            ImportFailed::class => function(ImportFailed $event) {
+            ImportFailed::class => function (ImportFailed $event) {
                 $this->teacherImport->update(['status' => 3]);
             },
         ];

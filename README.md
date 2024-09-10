@@ -4,6 +4,24 @@
 ## Contact
 * **Email**: hau.nguyenbk8786@gmail.com
 
+## SETUP DOCKER
+* Create `.env` add `APP_SERVICE=laravel_api`
+* Run docker desktop
+```javascript
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
+
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+
+sail up -d
+sail composer install
+sail npm i
+```
+
 ## API documentation
 ### Auth
 * Sign up user into the system

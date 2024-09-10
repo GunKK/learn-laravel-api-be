@@ -16,14 +16,14 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         $allowAccess = false;
-        foreach($roles as $role) {
-            if($request->user()->role->name === $role) {
+        foreach ($roles as $role) {
+            if ($request->user()->role->name === $role) {
                 $allowAccess = true;
                 break;
             }
         }
 
-        if(! $allowAccess) {
+        if (!$allowAccess) {
             return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
         }
 

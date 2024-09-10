@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\user\v1;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Models\User;
+use Illuminate\Foundation\Http\FormRequest;
 
 class CreateUserRequest extends FormRequest
 {
@@ -24,7 +24,7 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'email' => 'required|string|email|max:255|ends_with:hcmut.edu.vn|unique:'.User::class,
+            'email' => 'required|string|email|max:255|ends_with:hcmut.edu.vn|unique:' . User::class,
         ];
     }
 }

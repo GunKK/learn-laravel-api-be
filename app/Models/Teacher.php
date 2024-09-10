@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-
 class Teacher extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'last_name','first_name', 'teacher_code', 'department', 'faculty', 'address', 'phone', 'note'
+        'last_name', 'first_name', 'teacher_code', 'department', 'faculty', 'address', 'phone', 'note',
     ];
 
     public function user(): BelongsTo
