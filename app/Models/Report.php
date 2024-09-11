@@ -10,8 +10,17 @@ class Report extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'student_id', 'teacher_to_subjects_id', 'title', 'path', 'mark',
+        'student_id',
+        'teacher_to_subjects_id',
+        'title',
+        'path',
+        'mark',
     ];
 
     public function teacherToSubject(): BelongsTo

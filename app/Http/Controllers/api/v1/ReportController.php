@@ -12,9 +12,9 @@ class ReportController extends Controller
     public function viewReport(string $id)
     {
         $report = Report::findOrFail($id);
-        if (Gate::denies('view_download_report', $report)) {
-            return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
-        }
+        // if (Gate::denies('view_download_report', $report)) {
+        //     return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
+        // }
         $pathReport = $report->path;
 
         return response()->file($pathReport);
@@ -23,9 +23,9 @@ class ReportController extends Controller
     public function downloadReport(string $id)
     {
         $report = Report::findOrFail($id);
-        if (Gate::denies('view_download_report', $report)) {
-            return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
-        }
+        // if (Gate::denies('view_download_report', $report)) {
+        //     return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
+        // }
         $pathReport = $report->path;
 
         return response()->download($pathReport);
