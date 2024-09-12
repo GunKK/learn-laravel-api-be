@@ -30,7 +30,7 @@ class ExportTranscripts extends Command
      */
     public function handle()
     {
-        $request = new Request();
+        $request = new Request(['year' => Carbon::now()->year]);
 
         $fileName = date('Ymd_His_') . 'transcripts.csv';
         $filePath = 'app/data/transcrips/' . Carbon::now()->year . '/' . $fileName;
