@@ -27,10 +27,13 @@ class TestExport extends Command
      */
     public function handle()
     {
-        $request = new Request();
+        $request = new Request(['semester' => 'HK232']);
 
         $export = new TranscriptExport($request);
+        // dd($export->query()->count());
         // dd($export->query()->first());
         dd($export->map(($export->query()->first())));
+
+        return 0;
     }
 }

@@ -8,4 +8,9 @@ class ReportService
     {
 
     }
+
+    public function exportTranscripts()
+    {
+
+    }
 }

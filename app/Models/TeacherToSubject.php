@@ -44,6 +44,8 @@ class TeacherToSubject extends Model
         if (!is_null($subjectId)) {
             $query->where('subject_id', $subjectId);
         }
+
+        return $query;
     }
 
     public function teacher(): BelongsTo

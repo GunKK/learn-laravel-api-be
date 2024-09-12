@@ -46,7 +46,7 @@ class TranscriptExport implements FromQuery, WithHeadings, WithMapping
             $row->student->full_name,
             $row->teacherToSubject->subject->name,
             $row->teacherToSubject->teacher->full_name,
-            $row->mark,
+            $row->mark ?? '',
             $row->path != '' ? 'submited' : 'not found',
             $row->teacherToSubject->semester,
             $row->teacherToSubject->year,
