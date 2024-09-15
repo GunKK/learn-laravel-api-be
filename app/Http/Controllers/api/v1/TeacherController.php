@@ -18,7 +18,7 @@ class TeacherController extends Controller
     public function createTeacherToSubject(TeacherToSubjectRequest $request)
     {
         $teacherToSubject = new TeacherToSubject($request->validated());
-        $teacherToSubject->teacher_id = Auth::user()->id;
+        $teacherToSubject->teacher_id = Auth::user()->teacher_id;
         $teacherToSubject->save();
 
         return response()->json($teacherToSubject);
@@ -32,9 +32,9 @@ class TeacherController extends Controller
     public function setMarkReport(SetMarkReportRequest $request, string $id)
     {
         $report = Report::findOrFail($id);
-        if (Gate::denies('teacher_set_mark', $report)) {
-            return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
-        }
+        // if (Gate::denies('teacher_set_mark', $report)) {
+        //     return response()->json(['message' => 'Forbidden', 'status' => 403], Response::HTTP_FORBIDDEN);
+        // }
         $report->mark = $request->mark;
         $report->save();
 

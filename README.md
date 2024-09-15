@@ -5,7 +5,7 @@
 * **Email**: hau.nguyenbk8786@gmail.com
 
 ## SETUP DOCKER
-* Create `.env` add `APP_SERVICE=laravel_api`
+* Create `.env` add `APP_SERVICE=laravel_api`, `DB_HOST=<ip_address>`
 * Run docker desktop
 ```javascript
 docker run --rm \
@@ -20,6 +20,9 @@ alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
 sail up -d
 sail composer install
 sail npm i
+sail artisan migrate
+sail artisan passport:install
+sail artisan db:seed
 ```
 
 ## API documentation

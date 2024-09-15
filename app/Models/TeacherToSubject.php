@@ -11,9 +11,42 @@ class TeacherToSubject extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     public $fillable = [
-        'teacher_id', 'subject_id', 'semester', 'year', 'note',
+        'teacher_id',
+        'subject_id',
+        'semester',
+        'year',
+        'note',
     ];
+
+    // scope filter transcripts
+    public function scopeTranscriptsFilter($query, $request)
+    {
+        $year = $request->query('year');
+        $semester = $request->query('semester');
+        $teacherId = $request->query('teacher_id');
+        $subjectId = $request->query('subject_id');
+
+        if (!is_null($year)) {
+            $query->where('year', $year);
+        }
+        if (!is_null($semester)) {
+            $query->where('semester', $semester);
+        }
+        if (!is_null($teacherId)) {
+            $query->where('teacher_id', $teacherId);
+        }
+        if (!is_null($subjectId)) {
+            $query->where('subject_id', $subjectId);
+        }
+
+        return $query;
+    }
 
     public function teacher(): BelongsTo
     {

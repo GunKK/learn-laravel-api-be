@@ -37,13 +37,13 @@ class AuthServiceProvider extends ServiceProvider
             return $user->role_id == 1;
         });
 
-        Gate::define('teacher_set_mark', function (User $user, Report $report) {
-            return Auth::user()->teacher_id === $report->teacherToSubject->teacher_id;
-        });
+        // Gate::define('teacher_set_mark', function (User $user, Report $report) {
+        //     return Auth::user()->teacher_id === $report->teacherToSubject->teacher_id;
+        // });
 
-        Gate::define('view_download_report', function (User $user, Report $report) {
-            return (Auth::user()->teacher_id === $report->teacherToSubject->teacher_id)
-                    || (Auth::user()->student_id === $report->student_id);
-        });
+        // Gate::define('view_download_report', function (User $user, Report $report) {
+        //     return (Auth::user()->teacher_id === $report->teacherToSubject->teacher_id)
+        //             || (Auth::user()->student_id === $report->student_id);
+        // });
     }
 }

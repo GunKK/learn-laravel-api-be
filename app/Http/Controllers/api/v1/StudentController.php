@@ -47,7 +47,7 @@ class StudentController extends Controller
         $year = $teacherToSubject->year;
         $semester = $teacherToSubject->semester;
         $file_name = date('Ymd_His_') . $request->file->getClientOriginalName();
-        $file_path = storage_path('app\\data\\reports\\' . $year . '\\' . $semester . '\\' . $teacherToSubject->id . '\\' . $file_name);
+        $file_path = storage_path('app/data/reports/' . $year . '/' . $semester . '/' . $teacherToSubject->id . '/' . $file_name);
 
         $report = new Report();
         $report->student_id = Auth::user()->student_id;
@@ -56,7 +56,7 @@ class StudentController extends Controller
         $report->path = $file_path;
         $report->save();
 
-        $request->file->move(storage_path('app\\data\\reports\\' . $year . '\\' . $semester . '\\' . $teacherToSubject->id), $file_name);
+        $request->file->move(storage_path('app/data/reports/' . $year . '/' . $semester . '/' . $teacherToSubject->id), $file_name);
 
         return response()->json([
             'message' => 'upload report successfully',

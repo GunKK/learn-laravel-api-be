@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('export:transcripts')->yearlyOn(7, 1, '17:00')->withoutOverlapping(10);
     }
 
     /**
